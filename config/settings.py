@@ -3,10 +3,14 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 SECRET_KEY = 'django-insecure-api-key-here'
+
 DEBUG = True
+
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +57,7 @@ TEMPLATES = [
     },
 ]
 
+# Strictly using SQLite in the Backend
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -60,10 +65,25 @@ DATABASES = {
     }
 }
 
+# --- CORS CONFIGURATION ---
 # Allow the frontend to talk to this backend
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
+    "http://localhost:8080",
 ]
+
+# Required to allow the browser to send Authorization headers
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+# ---------------------------
 
 # Configure REST Framework for Token Security
 REST_FRAMEWORK = {

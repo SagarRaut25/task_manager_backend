@@ -1,4 +1,4 @@
-# tasks/views.py
+# task_manager_backend/tasks/views.py
 from rest_framework import viewsets, permissions, status, generics
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -32,9 +32,9 @@ class TaskViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Users can only see their OWN tasks
+        # This ensures you only see tasks belonging to the logged-in user
         return Task.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        # Automatically link the task to the logged-in user
+        # This attaches the user ID to the task when it's saved
         serializer.save(user=self.request.user)
